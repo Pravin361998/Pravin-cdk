@@ -25,5 +25,5 @@ class VPCStack(Stack):
                            )
                            ],
                            ### nat_gateway_provider=ec2.NatProvider.gateway(),
-                           nat_gateways=2,
+                           nat_gateways=1,
                            )
