@@ -24,6 +24,6 @@ class VPCStack(Stack):
                                cidr_mask=24
                            )
                            ],
-                           ## nat_gateway_provider=ec2.NatProvider.gateway(),
+                           ### nat_gateway_provider=ec2.NatProvider.gateway(),
                            nat_gateways=2,
                            )
