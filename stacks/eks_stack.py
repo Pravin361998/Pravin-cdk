@@ -9,6 +9,8 @@ class EKSStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
+##Vpc creation
+
         vpc = ec2.Vpc(self, "VPC",
                            max_azs=2,
                            ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"),
@@ -26,6 +28,7 @@ class EKSStack(Stack):
                            ]
         )
 
+#IAM role creation for node group
         eksNG_role = iam.Role(self, "nodegrouprole", 
                                assumed_by=iam.ServicePrincipal(service='ec2.amazonaws.com'),
                                role_name='eks-cluster-role',
@@ -38,7 +41,7 @@ class EKSStack(Stack):
             )
       
 
-
+#Cluster Creation
         cluster = eks.Cluster(self, 'Cluster',
                               cluster_name = "Pravincluster",
                               vpc=vpc,
@@ -46,7 +49,7 @@ class EKSStack(Stack):
                               endpoint_access=eks.EndpointAccess.PUBLIC_AND_PRIVATE,
                               default_capacity=0
                               )
-        
+#Nodegroup Creation      
         nodegroup = eks.Nodegroup(self, "Nodegroup",
                                  cluster=cluster,
                                  ami_type=eks.NodegroupAmiType.AL2_X86_64,
